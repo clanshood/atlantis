@@ -15,21 +15,24 @@ angular
     'ngCookies',
     'ngMessages',
     'ngResource',
-    'ngRoute',
+    'ui.router',
     'ngSanitize',
     'ngTouch'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+    $stateProvider
+      .state('home', {
+        url: '/',
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
+      .state('about', {
+        url: '/about',
+        templateUrl: 'views/about.html'
       });
+
+    $urlRouterProvider
+      .otherwise('/');
+
+    $locationProvider.html5Mode(true);
   });
